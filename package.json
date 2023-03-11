@@ -1,0 +1,16 @@
+{
+  "name": "nodejs-aws-order-salchipapas",
+  "version": "1.0.0",
+  "description": "Serverless API Order Salchipapas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jeissonarcadio778",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.289.0",
+    "aws-sdk": "^2.1333.0",
+    "uuid": "^9.0.0"
+  }
+}

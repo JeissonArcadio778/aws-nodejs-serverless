@@ -1,0 +1,49 @@
+service: nodejs-aws-order-salchipapas
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    REGION: ${self:provider.region}
+  iam:
+    role:
+      statements:
+        # Allow functions to list all buckets
+        - Effect: Allow
+          Action: 
+            - sqs:*
+          Resource:
+            - 'arn:aws:sqs:us-east-1:788950990295:PendingOrderQueue'
+    # PENDING_ORDER_QUEUE:
+    #   ref: ${self:resources.Resources.PendingOrderQueue.Properties.QueueName}
+
+functions:
+  createOrder:
+    handler: controllers/create-order.createOrder
+    events: 
+      - httpApi:
+          path: /order 
+          method: post
+  prepareOrder:
+    handler: controllers/prepare-order.prepareOrder
+    events:
+      - sqs: 
+          arn: 
+            Fn::GetAtt:
+                - PendingOrderQueue
+                - Arn
+          batchSize: 1 # Quantity of SQS Messages to trigger the lambda
+
+
+    
+
+resources: 
+  Resources: 
+    PendingOrderQueue:
+      Type: "AWS::SQS::Queue"
+      Properties: 
+        QueueName: "PendingOrderQueue" 
+        # Maybe we can more environments ..OrderQueueDEV, PROD
+
