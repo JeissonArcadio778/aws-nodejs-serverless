@@ -9,16 +9,19 @@ const createOrder = async (event) => {
 
             AWS.config.update({region: process.env.REGION});
             const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+            const orderId = uuid.v4()
+            
+            const body = JSON.parse(event.body);
+  
+            const order = {
+              orderId,
+              name: body.name,
+              address: body.address,
+              pizzas: body.pizzas,
+              createdAt: new Date()
+            };
 
-            const createdAt = new Date();
-            const orderId = uuid.v4();
-
-            const { name, address, pizzas } = event.body;
-
-            console.log({name, address, pizzas, event})
-
-
-            const newOrder = { name, address, pizzas, createdAt, orderId}
+            console.log({order});
 
             const params = {
               DelaySeconds: 10,
@@ -28,7 +31,7 @@ const createOrder = async (event) => {
                   StringValue: "Jeisson Arcadio",
                 },
               },
-              MessageBody: JSON.stringify({name, address, pizzas, createdAt, orderId}),
+              MessageBody: JSON.stringify(order),
               QueueUrl: "https://sqs.us-east-1.amazonaws.com/788950990295/PendingOrderQueue"
             };
             
