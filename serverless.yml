@@ -16,8 +16,11 @@ provider:
             - sqs:*
           Resource:
             - 'arn:aws:sqs:us-east-1:788950990295:PendingOrderQueue'
-    # PENDING_ORDER_QUEUE:
-    #   ref: ${self:resources.Resources.PendingOrderQueue.Properties.QueueName}
+        - Effect: Allow
+          Action: 
+            - dynamodb:*
+          Resource: 
+            - 'arn:aws:dynamodb:us-east-1:788950990295:table/CompletedOrdersTable'
 
 functions:
   createOrder:
@@ -46,4 +49,14 @@ resources:
       Properties: 
         QueueName: "PendingOrderQueue" 
         # Maybe we can more environments ..OrderQueueDEV, PROD
-
+    CompletedOrdersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: CompletedOrdersTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: orderId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: orderId
+            KeyType: HASH
