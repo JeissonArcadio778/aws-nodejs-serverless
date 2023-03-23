@@ -60,3 +60,6 @@ resources:
         KeySchema:
           - AttributeName: orderId
             KeyType: HASH
+        StreamSpecification:
+          StreamViewType: NEW_IMAGE
+
