@@ -38,7 +38,15 @@ functions:
                 - PendingOrderQueue
                 - Arn
           batchSize: 1 # Quantity of SQS Messages to trigger the lambda
-
+  sendOrder:
+    handler: controllers/send-order.sendOrder
+    events:
+      - stream:
+          type: dynamodb
+          batchSize: 1 # Quantity of SQS Messages to trigger the lambda
+          startingPosition: LATEST
+          arn:
+            Fn::GetAtt: [CompletedOrdersTable, StreamArn]
 
     
 
