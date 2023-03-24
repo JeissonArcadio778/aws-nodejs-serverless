@@ -1,7 +1,7 @@
 'use strict'
 
 // Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
+let AWS = require('aws-sdk');
 
 
 /*

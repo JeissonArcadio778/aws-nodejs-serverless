@@ -47,7 +47,12 @@ functions:
           startingPosition: LATEST
           arn:
             Fn::GetAtt: [CompletedOrdersTable, StreamArn]
-
+  statusOrder:
+    handler: controllers/status-order.statusOrder
+    events: 
+      - httpApi:
+          path: /order/{id} 
+          method: get
     
 
 resources: 
