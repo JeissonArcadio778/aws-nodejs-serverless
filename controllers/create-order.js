@@ -8,7 +8,9 @@ const createOrder = async (event) => {
       try {
 
             AWS.config.update({region: process.env.REGION});
+
             const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+            
             const orderId = uuid.v4()
             
             const body = JSON.parse(event.body);
