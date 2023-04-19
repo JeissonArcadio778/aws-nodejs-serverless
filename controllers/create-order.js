@@ -10,7 +10,7 @@ const createOrder = async (event) => {
             AWS.config.update({region: process.env.REGION});
 
             const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
-            
+
             const orderId = uuid.v4()
             
             const body = JSON.parse(event.body);
@@ -23,7 +23,7 @@ const createOrder = async (event) => {
               createdAt: new Date()
             };
 
-            console.log({order});
+            console.log("Order: ", {order});
 
             const params = {
               DelaySeconds: 10,

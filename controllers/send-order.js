@@ -3,6 +3,7 @@ let AWS = require('aws-sdk');
 const sendOrder = async (event) => {
 
     console.log('Send Order was calling...');
+
     console.log(event.Records[0].dynamodb);
 
     try {
@@ -11,7 +12,7 @@ const sendOrder = async (event) => {
 
             console.log({record});
 
-            if (record.eventName === 'INSERT') {
+            if (record.eventName === 'INSERT') {  //"INSERT" Es una verificación de que un nuevo elemento ha sido agregado a la tabla. 
                     
                     console.log('deliverOrder');
 
