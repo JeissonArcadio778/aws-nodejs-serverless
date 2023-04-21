@@ -14,7 +14,7 @@ authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
 
 
 
-![image](https://user-images.githubusercontent.com/95374726/233537028-52e12fa1-c8c4-48cf-b3ed-ddf22b48e210.png)
+                 ![image](https://user-images.githubusercontent.com/95374726/233537028-52e12fa1-c8c4-48cf-b3ed-ddf22b48e210.png)
 
 
 
