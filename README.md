@@ -1,77 +1,34 @@
-<!--
-title: 'AWS NodeJS Example'
-description: 'This template demonstrates how to deploy a NodeJS function running on AWS Lambda using the traditional Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-priority: 1
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
 
 
-# AWS Serverless APP: Gestor de Orden, preparación y envio de Salchipapas
+# AWS Serverless Order Salchipapas
+
+Este es una aplicación para ordenar, preparar y enviar una orden de salchipapas para un local de venta de salchipapas.
 
    ![image](https://user-images.githubusercontent.com/95374726/233537028-52e12fa1-c8c4-48cf-b3ed-ddf22b48e210.png)
 
-# 
+## Servicios utilizados
 
-This template demonstrates how to deploy a NodeJS function running on AWS Lambda using the traditional Serverless Framework. The deployed function does not include any event definitions as well as any kind of persistence (database). For more advanced configurations check out the [examples repo](https://github.com/serverless/examples/) which includes integrations with SQS, DynamoDB or examples of functions that are triggered in `cron`-like manner. For details about configuration of specific `events`, please refer to our [documentation](https://www.serverless.com/framework/docs/providers/aws/events/).
+La aplicación se construye utilizando arquitectura serverless con los siguientes servicios de AWS:
 
-## Usage
+- Lambda
+- API Gateway
+- DynamoDB
+- SQS
+- DynamoStreams
 
-### Deployment
+## Arquitectura
 
-In order to deploy the example, you need to run the following command:
+La arquitectura se basa en eventos que son disparados por el API Gateway. Cuando un usuario envía una solicitud POST al API Gateway, se activa una función Lambda para crear una orden. Esta misma función envía información sobre la orden a una cola de SQS, incluyendo detalles como el usuario que creó la orden, quien la recibió, el tipo de salchipapas y la información del cliente como número de teléfono y dirección.
 
-```
-$ serverless deploy
-```
+Otra función Lambda espera a que la cola reciba una orden. Cuando la cola recibe la orden, esta función prepara la orden tal y como fue solicitada y escribe un registro en DynamoDB. El registro incluye el número de la orden, la información del cliente y una marca que indica que la orden ha sido completada.
 
-After running deploy, you should see output similar to:
+Usando DynamoStreams, otra función Lambda es activada cuando la marca de orden completada está establecida en verdadero. Esta función envía la orden al cliente.
 
-```bash
-Deploying aws-node-project to stage dev (us-east-1)
+## Endpoints de la API
 
-✔ Service deployed to stack aws-node-project-dev (112s)
+El API Gateway tiene dos endpoints:
 
-functions:
-  hello: aws-node-project-dev-hello (1.5 kB)
-```
+- **POST /order** - Crea una nueva orden y la agrega a la cola
+- **GET /order/{id}** - Obtiene el estado de una orden específica identificada por su ID.
 
-### Invocation
-
-After successful deployment, you can invoke the deployed function by using the following command:
-
-```bash
-serverless invoke --function hello
-```
-
-Which should result in response similar to the following:
-
-```json
-{
-    "statusCode": 200,
-    "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": {}\n}"
-}
-```
-
-### Local development
-
-You can invoke your function locally by using the following command:
-
-```bash
-serverless invoke local --function hello
-```
-
-Which should result in response similar to the following:
-
-```
-{
-    "statusCode": 200,
-    "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
-}
-```
-# aws-nodejs-order-salchipapas
+Este es el resumen general de la aplicación AWS Serverless Order Salchipapas.
