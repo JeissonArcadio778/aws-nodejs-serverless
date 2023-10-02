@@ -5,7 +5,7 @@ let AWS = require('aws-sdk');
 
 const statusOrder = async (event) => {
 
-    console.log('Start StatusOrder');
+    console.log('Start StatusOrder!!!');
 
             const orderId = event.pathParameters && event.pathParameters.orderId 
 
