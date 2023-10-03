@@ -14,7 +14,8 @@ const createOrder = async (event) => {
             const orderId = uuid.v4()
             
             const body = JSON.parse(event.body);
-  
+        
+            console.log("BODY:", body);
             const order = {
               orderId,
               name: body.name,
