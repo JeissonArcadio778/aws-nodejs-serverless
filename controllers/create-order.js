@@ -3,7 +3,7 @@ const uuid = require('uuid');
 
 const createOrder = async (event) => {
 
-    console.log('Create Order Starting!');
+    console.log('Create Order Starting!!!');
 
       try {
 
@@ -14,7 +14,8 @@ const createOrder = async (event) => {
             const orderId = uuid.v4()
             
             const body = JSON.parse(event.body);
-  
+        
+            console.log("BODY:", body);
             const order = {
               orderId,
               name: body.name,

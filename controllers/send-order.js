@@ -12,7 +12,7 @@ const sendOrder = async (event) => {
 
             console.log({record});
 
-            if (record.eventName === 'INSERT') {  //"INSERT" Es una verificación de que un nuevo elemento ha sido agregado a la tabla. 
+            if (record.eventName === 'INSERT') {
                     
                     console.log('deliverOrder');
 

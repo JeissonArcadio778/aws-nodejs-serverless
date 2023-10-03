@@ -1,24 +1,10 @@
 'use strict'
 
-// Load the AWS SDK for Node.js
 let AWS = require('aws-sdk');
-
-
-/*
- order : {
-  orderId: String,
-  name: String,
-  address: String,
-  pizzas: Array of Strings,
-  delivery_status: READY_FOR_DELIVERY / DELIVERED
-  timestamp: timestamp
-}
-*/
-
 
 const prepareOrder = async (event) => {
 
-    console.log('Prepare Order Starting...');
+    console.log('Prepare Order Starting!');
 
             try {
                 

@@ -32,3 +32,5 @@ El API Gateway tiene dos endpoints:
 - **GET /order/{id}** - Obtiene el estado de una orden específica identificada por su ID.
 
 Este es el resumen general de la aplicación AWS Serverless Order Salchipapas.
+
+BY JEISSON EDUARDO BELTRAN PORRAS

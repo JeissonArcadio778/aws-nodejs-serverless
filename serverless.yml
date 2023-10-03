@@ -10,7 +10,6 @@ provider:
   iam:
     role:
       statements:
-        # Allow functions to list all buckets
         - Effect: Allow
           Action: 
             - sqs:*
