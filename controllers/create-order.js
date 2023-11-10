@@ -14,8 +14,9 @@ const createOrder = async (event) => {
             const orderId = uuid.v4()
             
             const body = JSON.parse(event.body);
-        
-            console.log("BODY:", body);
+
+            console.log("PIZZAS::", body.pizzas);
+  
             const order = {
               orderId,
               name: body.name,
@@ -35,7 +36,7 @@ const createOrder = async (event) => {
                 },
               },
               MessageBody: JSON.stringify(order),
-              QueueUrl: "https://sqs.us-east-1.amazonaws.com/788950990295/PendingOrderQueue"
+              QueueUrl: "https://sqs.us-east-1.amazonaws.com/405242296682/PendingOrderQueue"
             };
             
 

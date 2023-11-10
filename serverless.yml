@@ -14,12 +14,12 @@ provider:
           Action: 
             - sqs:*
           Resource:
-            - 'arn:aws:sqs:us-east-1:788950990295:PendingOrderQueue'
+            - 'arn:aws:sqs:us-east-1:405242296682:PendingOrderQueue'
         - Effect: Allow
           Action: 
             - dynamodb:*
           Resource: 
-            - 'arn:aws:dynamodb:us-east-1:788950990295:table/CompletedOrdersTable'
+            - 'arn:aws:dynamodb:us-east-1:405242296682:table/CompletedOrdersTable'
         - Effect: Allow
           Resource: '*'
           Action: 's3:*'

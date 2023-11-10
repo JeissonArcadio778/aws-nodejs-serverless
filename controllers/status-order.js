@@ -7,9 +7,9 @@ const statusOrder = async (event) => {
 
     console.log('Start StatusOrder!!!');
 
-            const orderId = event.pathParameters && event.pathParameters.orderId 
+            const orderId = event.pathParameters.id
 
-            console.log({orderId});
+            console.log("The order Id: ", {orderId});
 
             try {
 
