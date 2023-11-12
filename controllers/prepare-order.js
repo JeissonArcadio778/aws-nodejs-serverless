@@ -14,11 +14,12 @@ const prepareOrder = async (event) => {
 
                 const order = JSON.parse(event.Records[0].body); 
 
-                order.delivery_status = 'READY_FOR_DELIVERY';
+                order.delivery_status = "READY_FOR_DELIVERY";
+
 
                 let params = {
                     TableName : "CompletedOrdersTable",
-                    Item : order
+                    Item : order,
                 }
 
                 const dynamodb = new AWS.DynamoDB.DocumentClient();

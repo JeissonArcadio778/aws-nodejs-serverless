@@ -28,7 +28,7 @@ const sendOrder = async (event) => {
                         ConditionExpression: 'attribute_exists(orderId)',
                         UpdateExpression: 'set delivery_status = :v',
                         ExpressionAttributeValues: {
-                            ":v" : "DELIVERED"
+                            ":v" : "PREPARING"
                         },
                         ReturnValues: 'ALL_NEW'
                     };

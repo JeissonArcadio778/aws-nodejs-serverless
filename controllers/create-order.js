@@ -27,8 +27,18 @@ const createOrder = async (event) => {
 
             console.log("Order: ", {order});
 
+
+          let registerOrder = {
+              TableName : "CompletedOrdersTable",
+              Item : order
+          }
+
+          const dynamodb = new AWS.DynamoDB.DocumentClient();
+          
+          await dynamodb.put(registerOrder).promise();
+        
             const params = {
-              DelaySeconds: 10,
+              DelaySeconds: 60,
               MessageAttributes: {
                 Author: {
                   DataType: "String",
@@ -55,8 +65,8 @@ const createOrder = async (event) => {
             console.log("Success, message sent. MessageID:", data.MessageId);
 
             console.log("Success, message sent. Data:", data);
-            
-          
+
+
             return {
               statusCode: 200,
               body: JSON.stringify({ message: `The order was register with the order number ${orderId}`, data}, null, 2 ),
