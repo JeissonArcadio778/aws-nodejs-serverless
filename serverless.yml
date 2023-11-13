@@ -45,7 +45,7 @@ functions:
     events:
       - stream:
           type: dynamodb
-          batchSize: 1 # Quantity of SQS Messages to trigger the lambda
+          batchSize: 1 # Quantity of SQS Messages to trigger the
           startingPosition: LATEST
           arn:
             Fn::GetAtt: [CompletedOrdersTable, StreamArn]

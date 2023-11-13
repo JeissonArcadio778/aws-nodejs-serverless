@@ -3,7 +3,7 @@
 # AWS Serverless Order Salchipapas
 
 Este es una aplicación para ordenar, preparar y enviar una orden de salchipapas para un local de venta de salchipapas.
-
+q
    ![image](https://user-images.githubusercontent.com/95374726/233537028-52e12fa1-c8c4-48cf-b3ed-ddf22b48e210.png)
 
 ## Servicios utilizados

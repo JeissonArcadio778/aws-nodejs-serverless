@@ -11,7 +11,7 @@ const statusOrder = async (event) => {
 
             console.log("The order Id: ", {orderId});
 
-            try {
+            try {   
 
                     let params = {
                         TableName: "CompletedOrdersTable",

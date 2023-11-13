@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 const uuid = require('uuid');
 
-const createOrder = async (event) => {
+const createOrder = async (event) => {  
 
     console.log('Create Order Starting!!!');
 
