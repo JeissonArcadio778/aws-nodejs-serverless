@@ -7,7 +7,7 @@ const sendOrder = async (event) => {
     console.log(event.Records[0].dynamodb);
 
     try {   
-        
+         
             const record = event.Records[0];
 
             console.log({record});

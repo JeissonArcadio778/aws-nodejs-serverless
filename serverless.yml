@@ -10,7 +10,7 @@ provider:
   iam:
     role:
       statements:
-        - Effect: Allow
+        - Effect: Allow 
           Action: 
             - sqs:*
           Resource:

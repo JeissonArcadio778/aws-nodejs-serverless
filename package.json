@@ -8,6 +8,7 @@
   },
   "author": "Jeissonarcadio778",
   "license": "MIT",
+  
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.289.0",
     "aws-sdk": "^2.1333.0",

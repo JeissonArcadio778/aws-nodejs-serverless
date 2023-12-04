@@ -4,7 +4,7 @@ const uuid = require('uuid');
 const createOrder = async (event) => {  
 
     console.log('Create Order Starting!!!');
-
+ 
       try {
 
             AWS.config.update({region: process.env.REGION});
