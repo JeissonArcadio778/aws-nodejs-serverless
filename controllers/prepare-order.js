@@ -4,7 +4,7 @@ let AWS = require('aws-sdk');
 
 const prepareOrder = async (event) => {
    
-    console.log('Prepare Order Starting!');
+    console.log('Prepare Order Starting!!!');
  
             try {
                 
