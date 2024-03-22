@@ -3,6 +3,11 @@
 let AWS = require('aws-sdk');
 
 
+/**
+ * Obtiene el estado de una orden.
+ * @param {Object} event - El objeto de evento que contiene los datos de la solicitud.
+ * @returns {Object} - El objeto de respuesta que contiene el estado de la orden.
+ */
 const statusOrder = async (event) => {
 
     console.log('Start StatusOrder!!!');

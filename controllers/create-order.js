@@ -1,6 +1,12 @@
 const AWS = require('aws-sdk');
 const uuid = require('uuid');
 
+/**
+ * Crea una orden de pedido.
+ * 
+ * @param {Object} event - El objeto de evento que contiene los datos de la solicitud.
+ * @returns {Object} - El objeto de respuesta que indica el resultado de la creación de la orden.
+ */
 const createOrder = async (event) => {  
 
     console.log('Create Order Starting!!!');

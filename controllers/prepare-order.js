@@ -2,6 +2,13 @@
 
 let AWS = require('aws-sdk');
 
+/**
+ * Prepara un pedido para su entrega.
+ * 
+ * @param {Object} event - El evento que desencadenó la función.
+ * @returns {Object} - El resultado de la preparación del pedido.
+ * @throws {Object} - El error que ocurrió durante la preparación del pedido.
+ */
 const prepareOrder = async (event) => {
    
     console.log('Prepare Order Starting!!!');
