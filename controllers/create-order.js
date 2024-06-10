@@ -6,7 +6,15 @@ const uuid = require('uuid');
  * 
  * @param {Object} event - El objeto de evento que contiene los datos de la solicitud.
  * @returns {Object} - El objeto de respuesta que indica el resultado de la creación de la orden.
- */
+
+CREATE TABLE CompletedOrdersTable (
+    orderId UUID PRIMARY KEY,
+    name TEXT,
+    address TEXT,
+    pizzas LIST<TEXT>,
+    createdAt TIMESTAMP
+);
+*/
 const createOrder = async (event) => {  
 
     console.log('Create Order Starting!!!');

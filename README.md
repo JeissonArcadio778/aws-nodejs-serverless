@@ -1,9 +1,10 @@
 
+# ACTUVIDAD 6 - Desarrollo de Aplicaciones
 
-# AWS Serverless Order Salchipapas!
+# AWS Serverless Order Pizzas
 
-Este es una aplicación para ordenar, preparar y enviar una orden de salchipapas para un local de venta de salchipapas.
-q
+Este es una aplicación para ordenar, preparar y enviar una orden de Pizzas para un local de venta de Pizzas.
+
    ![image](https://user-images.githubusercontent.com/95374726/233537028-52e12fa1-c8c4-48cf-b3ed-ddf22b48e210.png)
 
 ## Servicios utilizados
@@ -32,5 +33,3 @@ El API Gateway tiene dos endpoints:
 - **GET /order/{id}** - Obtiene el estado de una orden específica identificada por su ID.
 
 Este es el resumen general de la aplicación AWS Serverless Order Salchipapas.
-
-BY JEISSON EDUARDO BELTRAN PORRAS
