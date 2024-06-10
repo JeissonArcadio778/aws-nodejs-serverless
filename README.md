@@ -1,5 +1,5 @@
 
-# ACTUVIDAD 6 - Desarrollo de Aplicaciones
+# ACTIVIDAD 6 - Desarrollo de Aplicaciones
 
 # AWS Serverless Order Pizzas
 
