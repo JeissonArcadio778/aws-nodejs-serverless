@@ -1,6 +1,3 @@
-
-# ACTIVIDAD 6 - Desarrollo de Aplicaciones
-
 # AWS Serverless Order Pizzas
 
 Este es una aplicación para ordenar, preparar y enviar una orden de Pizzas para un local de venta de Pizzas.
