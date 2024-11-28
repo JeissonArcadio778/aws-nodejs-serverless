@@ -5,7 +5,7 @@ provider:
   name: aws
   runtime: nodejs16.x
   region: us-east-1
-  timeout: 10000 # Tiempo de espera en segundos
+  # timeout: 10000 # Tiempo de espera en segundos
   environment:
     REGION: ${self:provider.region}
     COGNITO_USER_POOL_ID: !Ref UserPool
@@ -93,6 +93,13 @@ functions:
     environment:
       COGNITO_CLIENT_ID: ${self:provider.environment.COGNITO_CLIENT_ID}
 
+  getPurchaseHistory:
+    handler: controllers/get-purchase-history.getPurchaseHistory
+    events:
+      - httpApi:
+          path: /purchase-history
+          method: get
+
 resources: 
   Resources: 
     PendingOrderQueue:
@@ -108,11 +115,20 @@ resources:
         AttributeDefinitions:
           - AttributeName: orderId
             AttributeType: S
+          - AttributeName: clientEmail
+            AttributeType: S
         KeySchema:
           - AttributeName: orderId
             KeyType: HASH
         StreamSpecification:
           StreamViewType: NEW_IMAGE
+        GlobalSecondaryIndexes:
+          - IndexName: clientEmailIndex
+            KeySchema:
+              - AttributeName: clientEmail
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
     UserPool:
       Type: AWS::Cognito::UserPool
       Properties:
