@@ -1,12 +1,15 @@
 service: nodejs-aws-order-salchipapas
-frameworkVersion: '3'
+frameworkVersion: '4'
 
 provider:
   name: aws
   runtime: nodejs16.x
   region: us-east-1
+  timeout: 10000 # Tiempo de espera en segundos
   environment:
     REGION: ${self:provider.region}
+    COGNITO_USER_POOL_ID: !Ref UserPool
+    COGNITO_CLIENT_ID: !Ref UserPoolClient
   iam:
     role:
       statements:
@@ -23,6 +26,11 @@ provider:
         - Effect: Allow
           Resource: '*'
           Action: 's3:*'
+        - Effect: Allow
+          Action:
+            - cognito-idp:AdminAddUserToGroup
+          Resource:
+            - 'arn:aws:cognito-idp:us-east-1:405242296682:userpool/us-east-1_c3IHhSQ6w'
 
 functions:
   createOrder:
@@ -31,6 +39,7 @@ functions:
       - httpApi:
           path: /order 
           method: post
+
   prepareOrder:
     handler: controllers/prepare-order.prepareOrder
     events:
@@ -40,6 +49,7 @@ functions:
                 - PendingOrderQueue
                 - Arn
           batchSize: 1 # Quantity of SQS Messages to trigger the lambda
+
   sendOrder:
     handler: controllers/send-order.sendOrder
     events:
@@ -49,13 +59,39 @@ functions:
           startingPosition: LATEST
           arn:
             Fn::GetAtt: [CompletedOrdersTable, StreamArn]
+
   statusOrder:
     handler: controllers/status-order.statusOrder
     events: 
       - httpApi:
           path: /order/{id} 
           method: get
-    
+
+  registerUser:
+    handler: controllers/auth/register.registerUser
+    events:
+      - httpApi:
+          path: /auth/register
+          method: post
+    environment:
+      COGNITO_USER_POOL_ID: ${self:provider.environment.COGNITO_USER_POOL_ID}
+      COGNITO_CLIENT_ID: ${self:provider.environment.COGNITO_CLIENT_ID}
+
+  loginUser:
+    handler: controllers/auth/login.loginUser
+    events:
+      - httpApi:
+          path: /auth/login
+          method: post
+
+  confirmUser:
+    handler: controllers/auth/confirm.confirmUser
+    events:
+      - httpApi:
+          path: /auth/confirm
+          method: post
+    environment:
+      COGNITO_CLIENT_ID: ${self:provider.environment.COGNITO_CLIENT_ID}
 
 resources: 
   Resources: 
@@ -77,3 +113,47 @@ resources:
             KeyType: HASH
         StreamSpecification:
           StreamViewType: NEW_IMAGE
+    UserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: SalchipapasUserPool
+        AutoVerifiedAttributes:
+          - email
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 8
+            RequireUppercase: true
+            RequireNumbers: true
+            RequireSymbols: true
+            RequireLowercase: true
+    UserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: SalchipapasUserPoolClient
+        UserPoolId:
+          Ref: UserPool
+        GenerateSecret: false
+        ExplicitAuthFlows:
+          - ADMIN_NO_SRP_AUTH
+          - USER_PASSWORD_AUTH
+    UserPoolGroupAdmin:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        UserPoolId: !Ref UserPool
+        GroupName: Administrators
+        Description: Administrators group for the system
+    UserPoolGroupCook:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        UserPoolId: !Ref UserPool
+        GroupName: Cooks
+        Description: Cooks group for the system
+    UserPoolGroupClient:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        UserPoolId: !Ref UserPool
+        GroupName: Clients
+        Description: Clients group for the system
+
+plugins:
+  - serverless-offline

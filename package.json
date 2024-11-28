@@ -4,14 +4,19 @@
   "description": "Serverless API Order Salchipapas",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon constrollers/prepare-order.js"
+    "test": "nodemon constrollers/prepare-order.js",
+    "debug" : "SET SLS_DEBUG=* && node --inspect node_modules/serverless/bin/serverless offline"
   },
   "author": "Jeissonarcadio778",
   "license": "MIT",
-  
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.289.0",
     "aws-sdk": "^2.1333.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.1.0",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "serverless-offline": "^14.3.4"
   }
 }
