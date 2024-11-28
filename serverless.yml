@@ -100,6 +100,13 @@ functions:
           path: /purchase-history
           method: get
 
+  getAllOrders:
+    handler: controllers/get-all-orders.getAllOrders
+    events:
+      - httpApi:
+          path: /orders
+          method: get
+
 resources: 
   Resources: 
     PendingOrderQueue:
