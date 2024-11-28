@@ -59,7 +59,8 @@ const authorize = (allowedRoles) => (handler) => async (event) => {
     console.log('Decoded:', decoded);
 
     // Verificar si el usuario pertenece a uno de los roles permitidos
-    if (!allowedRoles.includes(decoded['cognito:groups'][0])) {
+    const userGroups = decoded['cognito:groups'];
+    if (!userGroups || !Array.isArray(userGroups) || !allowedRoles.some(role => userGroups.includes(role))) {
       return {
         statusCode: 403,
         body: JSON.stringify({ message: 'Access denied' }),

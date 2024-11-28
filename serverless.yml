@@ -32,6 +32,26 @@ provider:
           Resource:
             - 'arn:aws:cognito-idp:us-east-1:405242296682:userpool/us-east-1_c3IHhSQ6w'
 
+  httpApi:
+    cors:
+      allowedOrigins:
+        - '*'
+      allowedMethods:
+        - GET
+        - OPTIONS
+        - POST
+        - PUT
+        - DELETE
+      allowedHeaders:
+        - Content-Type
+        - X-Amz-Date
+        - Authorization
+        - X-Api-Key
+        - X-Amz-Security-Token
+        - X-Amz-User-Agent
+        - X-Transaction-Key
+        - Access-Control-Allow-Origin
+
 functions:
   createOrder:
     handler: controllers/create-order.createOrder
