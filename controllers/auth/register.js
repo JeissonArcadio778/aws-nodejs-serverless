@@ -7,6 +7,15 @@ const registerUser = async (event) => {
   console.log('Registering user', email, role);
   console.log('Cognito client id', process.env.COGNITO_CLIENT_ID);
 
+  const allowedRoles = ['Administrators', 'Cooks', 'Clients'];
+
+  if (!allowedRoles.includes(role)) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: 'Invalid role' }),
+    };
+  }
+
   try {
     const params = {
       ClientId: process.env.COGNITO_CLIENT_ID, // Usar variable de entorno
@@ -18,6 +27,14 @@ const registerUser = async (event) => {
     };
 
     const result = await cognito.signUp(params).promise();
+
+    const groupParams = {
+      GroupName: role,
+      UserPoolId: process.env.COGNITO_USER_POOL_ID,
+      Username: email,
+    };
+
+    await cognito.adminAddUserToGroup(groupParams).promise();
 
     return {
       statusCode: 200,
