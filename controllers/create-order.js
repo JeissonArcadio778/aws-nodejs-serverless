@@ -46,7 +46,7 @@ const createOrder = async (event) => {
 
     // Enviar el pedido a la cola de SQS
     const params = {
-      DelaySeconds: 0,
+      DelaySeconds: 30,
       MessageAttributes: {
         ClientEmail: {
           DataType: "String",
