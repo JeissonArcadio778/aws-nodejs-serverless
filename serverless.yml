@@ -23,6 +23,7 @@ provider:
             - dynamodb:*
           Resource: 
             - 'arn:aws:dynamodb:us-east-1:405242296682:table/CompletedOrdersTable'
+            - 'arn:aws:dynamodb:us-east-1:405242296682:table/CompletedOrdersTable/index/clientEmailIndex'
         - Effect: Allow
           Resource: '*'
           Action: 's3:*'
