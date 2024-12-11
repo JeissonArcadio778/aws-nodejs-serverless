@@ -5,6 +5,7 @@ const loginUser = async (event) => {
   const { email, password } = JSON.parse(event.body);
   console.log('Logging in user:', email);
   console.log('Cognito client ID:', process.env.COGNITO_CLIENT_ID);
+
   try {
     const params = {
       AuthFlow: 'USER_PASSWORD_AUTH',
@@ -17,9 +18,19 @@ const loginUser = async (event) => {
 
     const result = await cognito.initiateAuth(params).promise();
 
+    const jwt = require('jsonwebtoken');
+    const decodedToken = jwt.decode(result.AuthenticationResult.IdToken);
+
+    const userGroups = decodedToken['cognito:groups'] || [];
+    const userRole = userGroups.length > 0 ? userGroups[0] : 'Client';
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Login successful', token: result.AuthenticationResult }),
+      body: JSON.stringify({
+        message: 'Login successful',
+        token: result.AuthenticationResult,
+        role: userRole,
+      }),
     };
   } catch (error) {
     console.error('Error logging in user', error);
