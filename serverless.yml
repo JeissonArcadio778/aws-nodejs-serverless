@@ -30,6 +30,8 @@ provider:
         - Effect: Allow
           Action:
             - cognito-idp:AdminAddUserToGroup
+            - cognito-idp:AdminGetUser
+            - cognito-idp:AdminUpdateUserAttributes
           Resource:
             - 'arn:aws:cognito-idp:us-east-1:405242296682:userpool/us-east-1_c3IHhSQ6w'
 
@@ -134,6 +136,24 @@ functions:
       - httpApi:
           path: /order/status
           method: put
+
+  getUserProfile:
+    handler: controllers/auth/profile.getUserProfile
+    events:
+      - httpApi:
+          path: /auth/profile
+          method: get
+    environment:
+      COGNITO_USER_POOL_ID: ${self:provider.environment.COGNITO_USER_POOL_ID}
+
+  updateUserProfile:
+    handler: controllers/auth/profile.updateUserProfile
+    events:
+      - httpApi:
+          path: /auth/profile
+          method: put
+    environment:
+      COGNITO_USER_POOL_ID: ${self:provider.environment.COGNITO_USER_POOL_ID}
 
 resources: 
   Resources: 
