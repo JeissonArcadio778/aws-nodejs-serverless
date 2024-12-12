@@ -22,7 +22,7 @@ const loginUser = async (event) => {
     const decodedToken = jwt.decode(result.AuthenticationResult.IdToken);
 
     const userGroups = decodedToken['cognito:groups'] || [];
-    const userRole = userGroups.length > 0 ? userGroups[0] : 'Client';
+    const userRole = userGroups.length > 0 ? userGroups[0] : 'Clients';
 
     return {
       statusCode: 200,
